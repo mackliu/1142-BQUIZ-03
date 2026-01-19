@@ -108,6 +108,24 @@ class DB{
         
         return $this->pdo->query($sql)->fetchColumn();
     }
+    function max($col,...$arg){
+        $sql="SELECT max(`$col`) FROM $this->table ";        
+            if(isset($arg[0])){
+                if(is_array($arg[0])){
+                    $where=$this->array2sql($arg[0]);
+                    $sql .= " WHERE ".join(" AND ",$where);
+                }else{
+                    $sql .=$arg[0];
+                }
+            }
+
+            if(isset($arg[1])){
+                $sql .= $arg[1];
+            }
+
+        
+        return $this->pdo->query($sql)->fetchColumn();
+    }
 
     private function array2sql($array){
         $tmp=[];
@@ -135,4 +153,5 @@ function q($sql){
 }
 
 
+$Poster=new DB('posters');
 
