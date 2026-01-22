@@ -25,6 +25,7 @@
         font-size:12px;
         width:70px;
         flex-shrink:0;
+        position:relative;
         
 
       }
