@@ -154,4 +154,4 @@ function q($sql){
 
 
 $Poster=new DB('posters');
-
+$Movie=new DB('movies');
