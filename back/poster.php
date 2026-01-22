@@ -68,7 +68,7 @@
 <script>
 $(".sw").on("click",function(){
     let ids=$(this).data("sw").split("-");
-    $.post("./api/sw.php",{ids},(res)=>{
+    $.post("./api/sw.php",{ids,'table':'Poster'},(res)=>{
         
         location.reload();
     })

@@ -3,18 +3,21 @@
     display:flex;
     align-items:center;
     margin-bottom:3px;
-    background:#fff;
+    background:#eee;
     padding:2px;
     width:95%;
-    margin:auto;
+    margin:3px auto;
 }
 </style>
 <button onclick="location.href='?do=add_movie'">新增電影</button>
 <hr>
+<div style='overflow:auto;height:440px;'>
 <?php 
 $movies=$Movie->all(" order by `rank`");
 
-foreach($movies as $movie):
+foreach($movies as $idx => $movie):
+    $prev_id=($idx>0)?$movies[$idx-1]['id']:$movie['id'];
+    $next_id=(count($movies)-1>$idx)?$movies[$idx+1]['id']:$movie['id'];
 ?>
 
 <div class='movie-item'>
@@ -41,8 +44,8 @@ foreach($movies as $movie):
     </div>
     <div style="text-align:right;">
         <button onclick="setShow(<?=$movie['id'];?>)"><?=($movie['sh']==1)?'顯示':'隱藏';?></button>
-        <button>往上</button>
-        <button>往下</button>
+        <button class='sw' data-sw="<?=$prev_id;?>-<?=$movie['id'];?>">往上</button>
+        <button class='sw' data-sw="<?=$next_id;?>-<?=$movie['id'];?>">往下</button>
         <button onclick="location.href='?do=edit_movie&id=<?=$movie['id'];?>'">編輯電影</button>
         <button onclick="location.href='api/del_movie.php?id=<?=$movie['id'];?>'">刪除電影</button>
     </div>
@@ -54,7 +57,7 @@ foreach($movies as $movie):
 <?php
 endforeach;
 ?>
-
+</div>
 
 <script>
 function setShow(id){
@@ -62,4 +65,12 @@ function setShow(id){
         location.reload();
     })
 }
+
+$(".sw").on("click",function(){
+    let ids=$(this).data("sw").split("-");
+    $.post("./api/sw.php",{ids,'table':'Movie'},(res)=>{
+        
+        location.reload();
+    })
+})
 </script>
