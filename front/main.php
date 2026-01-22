@@ -1,11 +1,94 @@
+    <style>
+      .lists{
+        width:210px;
+        height:240px;
+        margin:auto;
+
+      }
+      .controls{
+        width:420px;
+        height:120px;
+        margin: 10px auto 0 auto;
+
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+      .btns{
+        width:280px;
+        height:100px;
+        display:flex;
+        overflow:hidden;
+      }
+      .btn{
+        text-align: center;
+        font-size:12px;
+        width:70px;
+        flex-shrink:0;
+        
+
+      }
+      .btn img{
+        width:60px;
+        height:70px;
+
+        
+      }
+
+      .left{
+        width: 0;
+        border-left: 18px solid transparent;
+        border-right: 35px solid orange;
+        border-bottom: 20px solid transparent;
+        border-top: 20px solid transparent;
+      }
+      .right{
+        width: 0;
+        border-right: 18px solid transparent;
+        border-left: 35px solid orange;
+        border-bottom: 20px solid transparent;
+        border-top: 20px solid transparent;
+      }
+      .poster{
+        width:210px;
+        height:220px;
+        position:absolute;
+        text-align: center;
+      }
+    </style>
     <div class="half" style="vertical-align:top;">
       <h1>預告片介紹</h1>
       <div class="rb tab" style="width:95%;">
-        <div id="abgne-block-20111227">
-          <ul class="lists">
-          </ul>
-          <ul class="controls">
-          </ul>
+        <div style="box-sizing:border-box">
+          <div class="lists">
+            <?php 
+          $posters=$Poster->all(['sh'=>1]);
+          foreach($posters as $idx => $poster):
+            ?>
+            <div class="poster">
+              <img src="upload/<?=$poster['img']?>" style="width:210px;height:220px;">
+              <div><?=$poster['name'];?></div>
+            </div>
+          <?php 
+          endforeach;
+          ?>
+          </div>
+          <div class="controls">
+            <div class='left'></div>
+            <div class="btns">
+              <?php 
+              foreach($posters as $idx => $poster):
+              ?>
+              <div class="btn">
+                  <img src="upload/<?=$poster['img']?>">
+                  <div><?=$poster['name'];?></div>
+              </div>
+              <?php 
+              endforeach;
+              ?>
+            </div>
+            <div class='right'></div>
+          </div>
         </div>
       </div>
     </div>
