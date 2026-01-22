@@ -40,7 +40,7 @@ foreach($movies as $movie):
         </div>
     </div>
     <div style="text-align:right;">
-        <button>顯示</button>
+        <button onclick="setShow(<?=$movie['id'];?>)"><?=($movie['sh']==1)?'顯示':'隱藏';?></button>
         <button>往上</button>
         <button>往下</button>
         <button onclick="location.href='?do=edit_movie&id=<?=$movie['id'];?>'">編輯電影</button>
@@ -55,3 +55,11 @@ foreach($movies as $movie):
 endforeach;
 ?>
 
+
+<script>
+function setShow(id){
+    $.post("api/set_show.php",{id},function(){
+        location.reload();
+    })
+}
+</script>
