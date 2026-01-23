@@ -93,6 +93,29 @@
         </div>
       </div>
     </div>
+
+<script>
+
+let btnPosition=0;
+let countPosters=<?=(count($posters)-4);?>;
+
+$(".left,.right").on("click",function(){
+  let w=70;
+    if($(this).hasClass("left")){
+      if(btnPosition>0){
+        btnPosition--;
+      }
+    }else{
+      if(btnPosition < countPosters){
+        btnPosition++;
+      }
+    }
+
+    $(".btn").animate({right:btnPosition*w},500);
+
+})
+
+</script>    
 <style>
   .movies{
     width:95%;
