@@ -55,6 +55,7 @@
         height:220px;
         position:absolute;
         text-align: center;
+        display:none;
       }
     </style>
     <div class="half" style="vertical-align:top;">
@@ -66,7 +67,7 @@
           $posters=$Poster->all(['sh'=>1]);
           foreach($posters as $idx => $poster):
             ?>
-            <div class="poster">
+            <div class="poster" data-ani="<?=$poster['ani'];?>">
               <img src="upload/<?=$poster['img']?>" style="width:210px;height:220px;">
               <div><?=$poster['name'];?></div>
             </div>
@@ -95,6 +96,48 @@
     </div>
 
 <script>
+let posters=$(".poster").length;
+
+$(".poster").eq(0).show();
+let slider=setInterval(()=>{
+  posterTransition();
+},3000);
+
+function posterTransition(){
+  let current=$(".poster:visible");
+  let ani=$(current).data("ani");
+  let idx=$(current).index();
+  let next;
+  console.log(idx,ani,posters);
+  if(idx+1<posters){
+    next=$(".poster").eq(idx+1);
+  }else{
+    next=$(".poster").eq(0);
+  }
+
+  switch(ani){
+    case 1:  //淡入淡出
+      $(current).fadeOut(1000,()=>{
+        $(next).fadeIn(1000);
+      });
+
+    break;
+    case 2:  //滑入滑出
+      $(current).slideUp(1000,()=>{
+        $(next).slideDown(1000);
+      });
+    break;
+    case 3:  //縮放
+      $(current).hide(1000,()=>{
+        $(next).show(1000);
+      });
+    break
+
+  }
+  
+
+}
+
 
 let btnPosition=0;
 let countPosters=<?=(count($posters)-4);?>;
