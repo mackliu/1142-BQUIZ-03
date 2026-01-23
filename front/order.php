@@ -53,9 +53,7 @@
 </form>
 
 <div id="booking" style="display:none;">
-劃位
-<button class='prev-step'>上一步</button>
-<button class='order-btn'>訂購</button>
+
 </div>
 <div id="orderResult" style="display:none;">
 結果
@@ -79,17 +77,28 @@ $(".send-order").on("click",function(){
     $("#orderForm").hide();
     $("#orderResult").hide();
 
-})
-$(".prev-step").on("click",function(){
-    $("#booking").hide();
-    $("#orderForm").show();
-    $("#orderResult").hide();
+    let movieId=$("#movie").val();
+    let date=$("#date").val();
+    let session=$("#session").val();
 
-})
-$(".order-btn").on("click",function(){
-    $("#booking").hide();
-    $("#orderForm").hide();
-    $("#orderResult").show();
+
+    $.get("front/booking.php",{movieId,date,session},(booking)=>{
+        $("#booking").html(booking);
+
+        $(".prev-step").on("click",function(){
+            $("#booking").hide();
+            $("#orderForm").show();
+            $("#orderResult").hide();
+        
+        })
+        
+        $(".order-btn").on("click",function(){
+            $("#booking").hide();
+            $("#orderForm").hide();
+            $("#orderResult").show();
+        
+        })
+    })
 
 })
 
