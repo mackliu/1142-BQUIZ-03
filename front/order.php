@@ -1,3 +1,4 @@
+<div id="orderForm">
 <h3 class="ct">線上訂票</h3>
 <style>
 #orderList{
@@ -8,6 +9,7 @@
     background:#eee;
 }    
 </style>
+<form>
 <table id="orderList">
     <tr>
         <td>電影:</td>
@@ -43,11 +45,24 @@
 </table>
 
 <div class="ct">
-    <button>確定</button>
-    <button>重置</button>
+    <button type="button" class="send-order">確定</button>
+    <button type='reset'>重置</button>
+</div>
+</div>
+
+</form>
+
+<div id="booking" style="display:none;">
+劃位
+<button class='prev-step'>上一步</button>
+<button class='order-btn'>訂購</button>
+</div>
+<div id="orderResult" style="display:none;">
+結果
 </div>
 
 <script>
+/*行為區*/    
 $("#movie").on("change",function(){
     let movieId=$(this).val();
     selectDate(movieId);
@@ -58,6 +73,27 @@ $("#date").on("change",function(){
 })
 
 selectDate($("#movie").val());
+
+$(".send-order").on("click",function(){
+    $("#booking").show();
+    $("#orderForm").hide();
+    $("#orderResult").hide();
+
+})
+$(".prev-step").on("click",function(){
+    $("#booking").hide();
+    $("#orderForm").show();
+    $("#orderResult").hide();
+
+})
+$(".order-btn").on("click",function(){
+    $("#booking").hide();
+    $("#orderForm").hide();
+    $("#orderResult").show();
+
+})
+
+/*功能區*/
 
 function selectDate(movieId){
     $.get("api/get_dates.php",{movieId},function(dates){
