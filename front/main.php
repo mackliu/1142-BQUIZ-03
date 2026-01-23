@@ -103,16 +103,20 @@ let slider=setInterval(()=>{
   posterTransition();
 },3000);
 
-function posterTransition(){
+function posterTransition(target){
   let current=$(".poster:visible");
   let ani=$(current).data("ani");
   let idx=$(current).index();
   let next;
-  console.log(idx,ani,posters);
-  if(idx+1<posters){
-    next=$(".poster").eq(idx+1);
+  console.log(idx,ani,posters,target);
+  if(typeof(target)=='undefined'){
+    if(idx+1<posters){
+      next=$(".poster").eq(idx+1);
+    }else{
+      next=$(".poster").eq(0);
+    }
   }else{
-    next=$(".poster").eq(0);
+    next=$(".poster").eq(target);
   }
 
   switch(ani){
@@ -132,11 +136,13 @@ function posterTransition(){
         $(next).show(1000);
       });
     break
-
   }
-  
-
 }
+
+$(".btn").on('click',function(){
+  let idx=$(this).index();
+  posterTransition(idx);
+})
 
 
 let btnPosition=0;
@@ -157,6 +163,17 @@ $(".left,.right").on("click",function(){
     $(".btn").animate({right:btnPosition*w},500);
 
 })
+
+$(".btns").hover(
+  function(){
+      clearInterval(slider);
+  },
+  function(){
+    slider=setInterval(()=>{
+      posterTransition();
+    },3000);
+  }
+)
 
 </script>    
 <style>
