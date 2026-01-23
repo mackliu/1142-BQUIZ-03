@@ -108,7 +108,7 @@ function posterTransition(target){
   let ani=$(current).data("ani");
   let idx=$(current).index();
   let next;
-  console.log(idx,ani,posters,target);
+  //console.log(idx,ani,posters,target);
   if(typeof(target)=='undefined'){
     if(idx+1<posters){
       next=$(".poster").eq(idx+1);
@@ -230,7 +230,7 @@ $(".btns").hover(
         </div>
         <div style="width:100%;">
           <button onclick="location.href='?do=intro&id=<?=$movie['id'];?>'">劇情簡介</button>
-          <button>線上訂票</button>
+          <button onclick="location.href='?do=order&id=<?=$movie['id'];?>'">線上訂票</button>
         </div>
         
       </div>
