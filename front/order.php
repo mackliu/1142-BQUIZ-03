@@ -42,6 +42,10 @@
     </tr>
 </table>
 
+<div class="ct">
+    <button>確定</button>
+    <button>重置</button>
+</div>
 
 <script>
 $("#movie").on("change",function(){
@@ -49,12 +53,25 @@ $("#movie").on("change",function(){
     selectDate(movieId);
 })
 
+$("#date").on("change",function(){
+    selectSession();
+})
+
 selectDate($("#movie").val());
 
 function selectDate(movieId){
     $.get("api/get_dates.php",{movieId},function(dates){
         $("#date").html(dates);
+        selectSession();
     })
-
 }
+
+function selectSession(){
+    let movieId=$("#movie").val();
+    let date=$("#date").val();
+    $.get("api/get_sessions.php",{movieId,date},function(sessions){
+        $("#session").html(sessions);
+    })
+}
+
 </script>
