@@ -42,7 +42,7 @@ class DB{
                 $sql .= $arg[1];
             }
 
-            //echo $sql;
+         //echo $sql;
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     function find($id){

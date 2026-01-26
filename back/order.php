@@ -35,14 +35,23 @@
 <div class="quick-del" style='display:flex'>
 <div>快速刪除：</div>
 <div>
-    <input type="radio" name="type" id="typeDate">依日期
+    <input type="radio" name="type" id="typeDate" value='date' checked>依日期
     <input type="text" name="date" id="date">
 </div>
 <div>
-    <input type="radio" name="type" id="typeMovie">依電影
-    <input type="text" name="movie" id="movie">
+    <input type="radio" name="type" id="typeMovie" value='movie'>依電影
+   <select name="movie" id="movie">
+    <?php 
+    $movies=$Order->all(" group by `movie`");
+    foreach($movies as $movie){
+    echo "<option value='{$movie['movie']}'>";
+    echo $movie['movie'];
+    echo "</option>";
+    }
+    ?>
+   </select>
 </div>
-<button style='margin:0 10px'>刪除</button>
+<button style='margin:0 10px' onclick="qdel()">刪除</button>
 
 </div>
 <div class="order-list" style='margin:5px;'>
@@ -79,10 +88,9 @@ foreach($orders as $order):
 
     }
     
-    
     ;?></div>
     <div>
-        <button>刪除</button>
+        <button onclick='del(<?=$order['id'];?>)'>刪除</button>
     </div>
 </div>
 <?php 
@@ -92,3 +100,31 @@ endforeach;
 
 
 </div>
+<script>
+function del(id){
+    if(confirm('你確定要刪除這筆資料?')){
+        $.post("api/del_movie.php",{id},()=>{
+            location.reload();
+        })
+    }
+}
+
+function qdel(){
+let type=$("input[name='type']:checked").val();
+let value;
+    switch(type){
+        case 'date':
+            value=$("#date").val();
+        break;
+        case 'movie':
+            value=$("#movie").val();
+        break;
+    }
+
+    if(confirm(`你確定要刪除這些訂單嗎?`))
+    $.post("api/q_del.php",{type,value},()=>{
+        location.reload();
+    })
+
+}
+</script>
