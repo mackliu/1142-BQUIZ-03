@@ -105,8 +105,9 @@ $(".order-btn").on("click",function(){
     let movie=$("#movie").val();
     let date=$("#date").val();
     let session=$("#session").val();
-    $.post("api/order.php",{seats,movie,date,session},()=>{
+    $.post("api/order.php",{seats,movie,date,session},(res)=>{
         console.log(seats,movie,date,session)
+        console.log(res)
         $("#booking").hide();
         $("#orderForm").hide();
         $("#orderResult").show();
