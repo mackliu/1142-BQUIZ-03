@@ -84,13 +84,21 @@ let seats=new Array();
 
 $(".chk").on('click',function(){
     let seat=$(this).val();
-    if(seats.length<4){
-        seats.push(seat)
-        $("#tickets").text(seats.length)
+
+    if($(this).prop('checked')){
+    //加到陣列
+        if(seats.length<4){
+            seats.push(seat)
+        }else{
+            alert("最多只能勾選四張票")
+            $(this).prop('checked',false)
+        }
     }else{
-        alert("最多只能勾選四張票")
+    //移出陣列
+        seats.splice(seats.indexOf(seat),1)
     }
-    console.log(seats)
+    $("#tickets").text(seats.length)
+    //console.log(seats)
 })
 
 </script>
