@@ -89,14 +89,6 @@ $(".send-order").on("click",function(){
             $("#booking").hide();
             $("#orderForm").show();
             $("#orderResult").hide();
-        
-        })
-        
-        $(".order-btn").on("click",function(){
-            $("#booking").hide();
-            $("#orderForm").hide();
-            $("#orderResult").show();
-        
         })
     })
 

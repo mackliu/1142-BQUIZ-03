@@ -101,4 +101,17 @@ $(".chk").on('click',function(){
     //console.log(seats)
 })
 
+$(".order-btn").on("click",function(){
+    let movie=$("#movie").val();
+    let date=$("#date").val();
+    let session=$("#session").val();
+    $.post("api/order.php",{seats,movie,date,session},()=>{
+        console.log(seats,movie,date,session)
+        $("#booking").hide();
+        $("#orderForm").hide();
+        $("#orderResult").show();
+    })
+
+        
+})
 </script>
