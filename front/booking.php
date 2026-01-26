@@ -77,3 +77,20 @@ for($i=0;$i<20;$i++){
         <button class='order-btn'>訂購</button>
     </div>
 </div>
+
+<script>
+
+let seats=new Array();
+
+$(".chk").on('click',function(){
+    let seat=$(this).val();
+    if(seats.length<4){
+        seats.push(seat)
+        $("#tickets").text(seats.length)
+    }else{
+        alert("最多只能勾選四張票")
+    }
+    console.log(seats)
+})
+
+</script>
