@@ -1,9 +1,10 @@
     <style>
       .lists{
         width:210px;
-        height:240px;
+        height:250px;
         margin:auto;
         position:relative;
+        overflow:hidden;
       }
       .controls{
         width:420px;
@@ -52,7 +53,7 @@
       }
       .poster{
         width:210px;
-        height:220px;
+        height:240px;
         position:absolute;
         text-align: center;
         display:none;
@@ -68,7 +69,7 @@
           foreach($posters as $idx => $poster):
             ?>
             <div class="poster" data-ani="<?=$poster['ani'];?>">
-              <img src="upload/<?=$poster['img']?>" style="width:100%">
+                <img src="upload/<?=$poster['img']?>" style="width:100%">
               <div><?=$poster['name'];?></div>
             </div>
           <?php 
@@ -127,9 +128,24 @@ function posterTransition(target){
 
     break;
     case 2:  //滑入滑出
-      $(current).slideUp(1000,()=>{
-        $(next).slideDown(1000);
-      });
+
+      $(next).show()
+      $(next).css({left:215,top:0})
+
+      $(current).animate({
+          left:-215,
+          top:0,
+        },1000,()=>{
+          $(current).hide();
+          $(current).css({left:0,top:0})
+        });
+          
+      $(next).animate({
+          left:0,
+          top:0
+      },1000);
+
+
     break;
     case 3:  //縮放
       $(current).animate(
@@ -137,18 +153,18 @@ function posterTransition(target){
           width:0,
           height:0,
           left:105,
-          top:110,
+          top:125,
 
         },1000,
         ()=>{
             $(current).hide()
-            $(current).css({width:210,height:220,left:0,top:0})
+            $(current).css({width:210,height:250,left:0,top:0})
             $(next).show()
-            $(next).css({width:0,height:0,left:105,top:110})
+            $(next).css({width:0,height:0,left:105,top:125})
             $(next).animate(
               {
                 width:210,
-                height:220,
+                height:250,
                 left:0,
                 top:0,
               },1000,
