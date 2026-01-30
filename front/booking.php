@@ -1,5 +1,19 @@
 <?php include_once("../api/db.php");
 $movie=$Movie->find($_GET['movieId']);
+
+//取得所有該場次已訂位的座位資料
+//1.先取得該場次的訂單
+$orders=$Order->all(" WHERE movie='{$movie['name']}' && date='{$_GET['date']}'  && session='{$duration[$_GET['session']]}'");
+//dd($orders);
+//2.宣告座位的空陣列
+$seats=[];
+//3.將每筆訂單的座位放入$seats陣列中
+foreach($orders as $order){
+    $ordered_seats=unserialize($order['seats']);
+    $seats=array_merge($seats,$ordered_seats);
+}
+
+//dd($seats);
 ?>
 <style>
 #box{
@@ -49,12 +63,17 @@ $movie=$Movie->find($_GET['movieId']);
 <div class="seats">
 <?php 
 for($i=0;$i<20;$i++){
-    
-    echo "<div class='seat null'>";
+    if(in_array($i,$seats)){
+        echo "<div class='seat booked'>";
+    }else{
+        echo "<div class='seat null'>";
+    }
     /* echo "<div class='seat booked'>"; */
     echo (floor($i/5)+1) ."排". ($i%5 +1 )."號";
 
-    echo "<input type='checkbox' value='$i' class='chk'>";
+    if(!in_array($i,$seats)){
+        echo "<input type='checkbox' value='$i' class='chk'>";
+    }
     echo "</div>";
   
 }
