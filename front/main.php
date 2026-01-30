@@ -3,7 +3,7 @@
         width:210px;
         height:240px;
         margin:auto;
-
+        position:relative;
       }
       .controls{
         width:420px;
@@ -68,7 +68,7 @@
           foreach($posters as $idx => $poster):
             ?>
             <div class="poster" data-ani="<?=$poster['ani'];?>">
-              <img src="upload/<?=$poster['img']?>" style="width:210px;height:220px;">
+              <img src="upload/<?=$poster['img']?>" style="width:100%">
               <div><?=$poster['name'];?></div>
             </div>
           <?php 
@@ -132,8 +132,27 @@ function posterTransition(target){
       });
     break;
     case 3:  //縮放
-      $(current).hide(1000,()=>{
-        $(next).show(1000);
+      $(current).animate(
+        {
+          width:0,
+          height:0,
+          left:105,
+          top:110,
+
+        },1000,
+        ()=>{
+            $(current).hide()
+            $(current).css({width:210,height:220,left:0,top:0})
+            $(next).show()
+            $(next).css({width:0,height:0,left:105,top:110})
+            $(next).animate(
+              {
+                width:210,
+                height:220,
+                left:0,
+                top:0,
+              },1000,
+              ()=>{});
       });
     break
   }
